@@ -41,15 +41,19 @@ STDIN.each_line {|text|
 
   yomi_text = nodes.map(&:yomi).join
   NG_WORDS.each { |ng_word|
-    idx = yomi_text.index(ng_word)
-    if idx.nil?
-      next
-    end
-    left = pos_map[idx]
-    right = pos_map[idx + ng_word.length - 1]
-    r = [left, right]
+    find_after = 0
+    loop {
+      idx = yomi_text.index(ng_word, find_after)
+      if idx.nil?
+        break
+      end
+      left = pos_map[idx]
+      right = pos_map[idx + ng_word.length - 1]
+      r = [left, right]
 
-    hit_ranges << r
+      hit_ranges << r
+      find_after = idx+1
+    }
   }
   hit_ranges.sort_by! {|e| e[0] }
 
