@@ -73,7 +73,6 @@ STDIN.each_line {|text|
     end
   }
 
-  in_hit_range = false
   text.chars.each_with_index {|c, i|
     r = hit_ranges[0] || [[-1, -1]]
     if i == r[0]
